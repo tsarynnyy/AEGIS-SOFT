@@ -383,10 +383,12 @@ class AegisAPITester:
                     # Analyze risk
                     risk = self.test_analyze_risk(member_id)
                     if risk:
+                        risk_tier = risk.get('tier') or risk.get('risk_tier', 'green')
+                        explanation = risk.get('explanation_text') or risk.get('explanation', 'No risk detected')
                         risk_results[pattern] = {
                             'member': f"{member.get('first_name')} {member.get('last_name')}",
-                            'risk_tier': risk.get('risk_tier'),
-                            'explanation': risk.get('explanation', '')
+                            'risk_tier': risk_tier,
+                            'explanation': explanation
                         }
         
         # Summary of risk patterns
