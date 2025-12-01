@@ -73,7 +73,7 @@ async def create_demo_members(org_id: str):
         user_data = {
             'id': member['user_id'],
             'email': f"demo.member{i}@aegis-demo.com",
-            'hashed_password': "$2b$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQJqhN8/LewY5yvVF9jqYqxqO",  # "demo123"
+            'hashed_password': "$2b$12$dp4xOGV3.tPWVqUVEu4rM.ZBYQFemHPcYs77WYMz51W6cmbXyhNU6",  # "demo123"
             'role': 'member',
             'first_name': member['first_name'],
             'last_name': member['last_name'],
