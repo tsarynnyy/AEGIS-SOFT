@@ -243,9 +243,9 @@ class AegisAPITester:
             if response and response.status_code == 200:
                 try:
                     data = response.json()
-                    if data.get('risk_tier'):
-                        risk_tier = data.get('risk_tier')
-                        explanation = data.get('explanation', 'No explanation')
+                    if data.get('tier') or data.get('risk_tier'):
+                        risk_tier = data.get('tier') or data.get('risk_tier')
+                        explanation = data.get('explanation_text') or data.get('explanation', 'No explanation')
                         self.log_test("Risk Analysis", True, f"Risk Tier: {risk_tier}, Explanation: {explanation[:100]}...")
                         return data
                     else:
