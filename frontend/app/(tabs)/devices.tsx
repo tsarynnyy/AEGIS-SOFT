@@ -6,11 +6,15 @@ import {
   ScrollView,
   ActivityIndicator,
   RefreshControl,
+  TouchableOpacity,
+  Alert,
+  Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../../contexts/AuthContext';
 import { api } from '../../services/api';
+import healthKit from '../../services/healthkit';
 
 export default function DevicesScreen() {
   const { accessToken } = useAuth();
