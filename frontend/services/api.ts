@@ -151,4 +151,81 @@ export const api = {
       return { error: 'Network error. Please check your connection.' };
     }
   },
+
+  // Caregiver endpoints
+  inviteCaregiver: async (
+    token: string,
+    memberId: string,
+    caregiverData: {
+      email: string;
+      first_name: string;
+      last_name: string;
+      relationship?: string;
+    }
+  ): Promise<ApiResponse<any>> => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/members/${memberId}/caregivers/invite`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          member_id: memberId,
+          ...caregiverData,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return { error: data.detail || 'Failed to invite caregiver' };
+      }
+
+      return { data };
+    } catch (error) {
+      return { error: 'Network error. Please check your connection.' };
+    }
+  },
+
+  getCaregivers: async (token: string, memberId: string): Promise<ApiResponse<any>> => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/members/${memberId}/caregivers`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return { error: data.detail || 'Failed to fetch caregivers' };
+      }
+
+      return { data };
+    } catch (error) {
+      return { error: 'Network error. Please check your connection.' };
+    }
+  },
+
+  removeCaregiver: async (token: string, relationshipId: string): Promise<ApiResponse<any>> => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/caregivers/${relationshipId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return { error: data.detail || 'Failed to remove caregiver' };
+      }
+
+      return { data };
+    } catch (error) {
+      return { error: 'Network error. Please check your connection.' };
+    }
+  },
 };
