@@ -249,25 +249,20 @@ export default function TrendsScreen() {
             <LineChart
               data={stepsData}
               width={chartWidth}
-              height={200}
+              height={220}
+              adjustToWidth
               color="#f59e0b"
-              thickness={3}
-              dataPointsColor="#f59e0b"
-              dataPointsRadius={4}
+              thickness={2}
               curved
               areaChart
               startFillColor="#f59e0b"
-              endFillColor="#f59e0b"
-              startOpacity={0.3}
-              endOpacity={0.05}
-              spacing={Math.max(40, chartWidth / (stepsData.length || 1))}
+              startOpacity={0.2}
+              endOpacity={0}
+              hideDataPoints
               hideRules
-              xAxisColor="#0f3460"
-              yAxisColor="#0f3460"
-              yAxisTextStyle={{ color: '#8892b0', fontSize: 10 }}
-              xAxisLabelTextStyle={{ color: '#8892b0', fontSize: 10 }}
-              noOfSections={4}
-              hideDataPoints={stepsData.length > 20}
+              yAxisTextStyle={{ color: '#8892b0' }}
+              xAxisLabelTextStyle={{ color: '#8892b0' }}
+              noOfSections={3}
             />
             <View style={styles.statsRow}>
               <View style={styles.statItem}>
