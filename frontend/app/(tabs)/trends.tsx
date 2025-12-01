@@ -62,15 +62,16 @@ export default function TrendsScreen() {
 
   const processChartData = (type: string) => {
     const filtered = metrics
-      .filter((m) => m.type === type)
+      .filter((m) => m.type === type && m.value_num != null)
       .sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+
+    if (filtered.length === 0) return [];
 
     return filtered.map((m, index) => ({
       value: m.value_num,
-      label: index % Math.floor(filtered.length / 5) === 0
+      label: index % Math.max(1, Math.floor(filtered.length / 5)) === 0
         ? new Date(m.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
         : '',
-      dataPointText: m.value_num?.toFixed(1),
     }));
   };
 
