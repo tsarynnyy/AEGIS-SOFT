@@ -352,6 +352,132 @@ async def get_member_devices(
     return [DeviceAccount(**d) for d in devices]
 
 
+# ==================== CAREGIVER ROUTES ====================
+
+@api_router.post("/members/{member_id}/caregivers/invite")
+async def invite_caregiver(
+    member_id: str,
+    invite: CaregiverInvite,
+    current_user: User = Depends(get_current_user)
+):
+    """Invite a caregiver for a member"""
+    import uuid
+    
+    # Check if user already exists
+    existing_user = await user_repo.find_by_email(invite.email)
+    
+    if existing_user:
+        # User exists, create caregiver profile if doesn't exist
+        caregiver_data = await caregiver_repo.find_by_user_id(existing_user['id'])
+        if not caregiver_data:
+            caregiver_data = {
+                'id': str(uuid.uuid4()),
+                'user_id': existing_user['id'],
+                'first_name': invite.first_name,
+                'last_name': invite.last_name,
+                'relationship': invite.relationship,
+                'created_at': datetime.utcnow(),
+                'updated_at': datetime.utcnow()
+            }
+            caregiver_data = await caregiver_repo.create(caregiver_data)
+        
+        caregiver_id = caregiver_data['id']
+    else:
+        # Create new user and caregiver
+        user_id = str(uuid.uuid4())
+        user_data = {
+            'id': user_id,
+            'email': invite.email,
+            'role': 'caregiver',
+            'first_name': invite.first_name,
+            'last_name': invite.last_name,
+            'is_active': True,
+            'is_verified': False,
+            'created_at': datetime.utcnow(),
+            'updated_at': datetime.utcnow()
+        }
+        await user_repo.create(user_data)
+        
+        caregiver_id = str(uuid.uuid4())
+        caregiver_data = {
+            'id': caregiver_id,
+            'user_id': user_id,
+            'first_name': invite.first_name,
+            'last_name': invite.last_name,
+            'relationship': invite.relationship,
+            'created_at': datetime.utcnow(),
+            'updated_at': datetime.utcnow()
+        }
+        await caregiver_repo.create(caregiver_data)
+    
+    # Create relationship
+    relationship_data = {
+        'id': str(uuid.uuid4()),
+        'member_id': member_id,
+        'caregiver_id': caregiver_id,
+        'can_view_alerts': True,
+        'can_view_metrics': True,
+        'can_add_notes': True,
+        'invitation_status': 'pending',
+        'invitation_sent_at': datetime.utcnow(),
+        'created_at': datetime.utcnow()
+    }
+    relationship = await caregiver_member_repo.create(relationship_data)
+    
+    # TODO: Send email invitation
+    
+    return {
+        "message": "Caregiver invitation sent",
+        "caregiver_id": caregiver_id,
+        "relationship_id": relationship['id']
+    }
+
+
+@api_router.get("/members/{member_id}/caregivers")
+async def get_member_caregivers(
+    member_id: str,
+    current_user: User = Depends(get_current_user)
+):
+    """Get all caregivers for a member"""
+    relationships = await caregiver_member_repo.find_by_member(member_id)
+    
+    # Enrich with caregiver details
+    enriched = []
+    for rel in relationships:
+        caregiver_data = await caregiver_repo.find_by_id(rel['caregiver_id'])
+        if caregiver_data:
+            enriched.append({
+                **rel,
+                'caregiver': caregiver_data
+            })
+    
+    return enriched
+
+
+@api_router.delete("/caregivers/{relationship_id}")
+async def remove_caregiver(
+    relationship_id: str,
+    current_user: User = Depends(get_current_user)
+):
+    """Remove a caregiver from care circle"""
+    success = await caregiver_member_repo.delete(relationship_id)
+    if not success:
+        raise HTTPException(status_code=404, detail="Caregiver relationship not found")
+    return {"message": "Caregiver removed successfully"}
+
+
+@api_router.post("/caregivers/{relationship_id}/accept")
+async def accept_caregiver_invitation(
+    relationship_id: str,
+    current_user: User = Depends(get_current_user)
+):
+    """Accept a caregiver invitation"""
+    success = await caregiver_member_repo.accept_invitation(relationship_id)
+    if not success:
+        raise HTTPException(status_code=404, detail="Invitation not found")
+    return {"message": "Invitation accepted"}
+
+
 # ==================== HEALTH CHECK ====================
 
 @api_router.get("/health")
