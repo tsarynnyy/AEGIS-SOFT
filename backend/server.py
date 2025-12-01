@@ -29,6 +29,9 @@ from repositories import (
 # Import services
 from services import AuthService, MemberService, MetricService, RiskService
 
+# Import additional models
+from models import Caregiver, CaregiverCreate, CaregiverInvite, CaregiverOnMember
+
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
