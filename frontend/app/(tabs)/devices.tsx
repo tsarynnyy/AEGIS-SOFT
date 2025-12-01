@@ -22,6 +22,9 @@ export default function DevicesScreen() {
   const [devices, setDevices] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [healthKitAvailable, setHealthKitAvailable] = useState(false);
+  const [healthKitConnected, setHealthKitConnected] = useState(false);
 
   useEffect(() => {
     loadDevices();
