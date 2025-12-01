@@ -420,4 +420,22 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     lineHeight: 20,
   },
+  chartContainer: {
+    marginVertical: 10,
+    overflow: 'hidden',
+  },
+  emptyCard: {
+    backgroundColor: '#16213e',
+    borderRadius: 16,
+    padding: 32,
+    marginBottom: 20,
+    borderWidth: 1,
+    borderColor: '#0f3460',
+    alignItems: 'center',
+  },
+  emptyText: {
+    fontSize: 14,
+    color: '#8892b0',
+    textAlign: 'center',
+  },
 });
