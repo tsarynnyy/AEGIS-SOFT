@@ -65,14 +65,19 @@ export default function TrendsScreen() {
       .filter((m) => m.type === type && m.value_num != null)
       .sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
 
+    console.log(`Processing ${type}: filtered ${filtered.length} items from ${metrics.length} total`);
+
     if (filtered.length === 0) return [];
 
-    return filtered.map((m, index) => ({
-      value: m.value_num,
+    const chartData = filtered.map((m, index) => ({
+      value: parseFloat(m.value_num),
       label: index % Math.max(1, Math.floor(filtered.length / 5)) === 0
         ? new Date(m.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
         : '',
     }));
+
+    console.log(`Chart data for ${type}:`, chartData.slice(0, 3));
+    return chartData;
   };
 
   const getMetricStats = (type: string) => {
