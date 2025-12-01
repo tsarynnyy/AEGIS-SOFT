@@ -145,7 +145,7 @@ export default function TrendsScreen() {
         </View>
 
         {/* HRV Chart */}
-        {hrvData.length > 0 && (
+        {hrvData.length > 0 ? (
           <View style={styles.chartCard}>
             <View style={styles.chartHeader}>
               <View>
@@ -157,24 +157,25 @@ export default function TrendsScreen() {
                 <Text style={styles.statValue}>{hrvStats.avg} ms</Text>
               </View>
             </View>
-            <LineChart
-              data={hrvData}
-              width={chartWidth}
-              height={220}
-              adjustToWidth
-              color="#10b981"
-              thickness={2}
-              curved
-              areaChart
-              startFillColor="#10b981"
-              startOpacity={0.2}
-              endOpacity={0}
-              hideDataPoints
-              hideRules
-              yAxisTextStyle={{ color: '#8892b0' }}
-              xAxisLabelTextStyle={{ color: '#8892b0' }}
-              noOfSections={3}
-            />
+            <View style={styles.chartContainer}>
+              <LineChart
+                data={hrvData}
+                width={chartWidth}
+                height={200}
+                color="#10b981"
+                thickness={2}
+                curved
+                areaChart
+                startFillColor="#10b981"
+                startOpacity={0.2}
+                endOpacity={0}
+                hideDataPoints
+                hideRules
+                yAxisTextStyle={{ color: '#8892b0' }}
+                xAxisLabelTextStyle={{ color: '#8892b0' }}
+                noOfSections={3}
+              />
+            </View>
             <View style={styles.statsRow}>
               <View style={styles.statItem}>
                 <Text style={styles.statLabel}>Min</Text>
@@ -185,6 +186,10 @@ export default function TrendsScreen() {
                 <Text style={styles.statValue}>{hrvStats.max}</Text>
               </View>
             </View>
+          </View>
+        ) : (
+          <View style={styles.emptyCard}>
+            <Text style={styles.emptyText}>No HRV data available for this period</Text>
           </View>
         )}
 
