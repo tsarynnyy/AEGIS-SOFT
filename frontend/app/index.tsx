@@ -1,9 +1,10 @@
-import { Text, View, StyleSheet, SafeAreaView, StatusBar, Platform } from "react-native";
+import { Text, View, StyleSheet, StatusBar, Platform } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Index() {
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <StatusBar barStyle="light-content" backgroundColor="#1a1a2e" />
+    <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
+      <StatusBar barStyle="light-content" />
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.logo}>🛡️</Text>
@@ -20,12 +21,13 @@ export default function Index() {
             <Text style={styles.statusLabel}>System Status</Text>
             <Text style={styles.statusValue}>✓ Connected</Text>
             <Text style={styles.statusDetail}>Platform: {Platform.OS}</Text>
+            <Text style={styles.statusDetail}>Version: 1.0.0</Text>
           </View>
         </View>
         
         <View style={styles.footer}>
-          <Text style={styles.footerText}>Aegis AI Platform v1.0</Text>
-          <Text style={styles.footerSubtext}>Backend API Ready</Text>
+          <Text style={styles.footerText}>Aegis AI Platform</Text>
+          <Text style={styles.footerSubtext}>Backend API Ready ✓</Text>
         </View>
       </View>
     </SafeAreaView>
