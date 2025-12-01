@@ -204,26 +204,21 @@ export default function TrendsScreen() {
             <LineChart
               data={sleepData.map(d => ({ ...d, value: d.value * 100 }))}
               width={chartWidth}
-              height={200}
+              height={220}
+              adjustToWidth
               color="#8b5cf6"
-              thickness={3}
-              dataPointsColor="#8b5cf6"
-              dataPointsRadius={4}
+              thickness={2}
               curved
               areaChart
               startFillColor="#8b5cf6"
-              endFillColor="#8b5cf6"
-              startOpacity={0.3}
-              endOpacity={0.05}
-              spacing={Math.max(40, chartWidth / (sleepData.length || 1))}
+              startOpacity={0.2}
+              endOpacity={0}
+              hideDataPoints
               hideRules
-              xAxisColor="#0f3460"
-              yAxisColor="#0f3460"
-              yAxisTextStyle={{ color: '#8892b0', fontSize: 10 }}
-              xAxisLabelTextStyle={{ color: '#8892b0', fontSize: 10 }}
-              noOfSections={4}
+              yAxisTextStyle={{ color: '#8892b0' }}
+              xAxisLabelTextStyle={{ color: '#8892b0' }}
+              noOfSections={3}
               yAxisSuffix="%"
-              hideDataPoints={sleepData.length > 20}
             />
             <View style={styles.statsRow}>
               <View style={styles.statItem}>
