@@ -160,25 +160,20 @@ export default function TrendsScreen() {
             <LineChart
               data={hrvData}
               width={chartWidth}
-              height={200}
+              height={220}
+              adjustToWidth
               color="#10b981"
-              thickness={3}
-              dataPointsColor="#10b981"
-              dataPointsRadius={4}
+              thickness={2}
               curved
               areaChart
               startFillColor="#10b981"
-              endFillColor="#10b981"
-              startOpacity={0.3}
-              endOpacity={0.05}
-              spacing={Math.max(40, chartWidth / (hrvData.length || 1))}
+              startOpacity={0.2}
+              endOpacity={0}
+              hideDataPoints
               hideRules
-              xAxisColor="#0f3460"
-              yAxisColor="#0f3460"
-              yAxisTextStyle={{ color: '#8892b0', fontSize: 10 }}
-              xAxisLabelTextStyle={{ color: '#8892b0', fontSize: 10 }}
-              noOfSections={4}
-              hideDataPoints={hrvData.length > 20}
+              yAxisTextStyle={{ color: '#8892b0' }}
+              xAxisLabelTextStyle={{ color: '#8892b0' }}
+              noOfSections={3}
             />
             <View style={styles.statsRow}>
               <View style={styles.statItem}>
