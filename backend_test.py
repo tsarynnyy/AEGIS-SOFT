@@ -241,19 +241,28 @@ class AegisAPITester:
             response = self.make_request('POST', f'/members/{member_id}/analyze-risk')
             
             if response and response.status_code == 200:
-                data = response.json()
-                if data.get('risk_tier'):
-                    risk_tier = data.get('risk_tier')
-                    explanation = data.get('explanation', 'No explanation')
-                    self.log_test("Risk Analysis", True, f"Risk Tier: {risk_tier}, Explanation: {explanation[:100]}...")
-                    return data
-                else:
-                    # Check if it's a "no risk" response
+                try:
+                    data = response.json()
+                    if data.get('risk_tier'):
+                        risk_tier = data.get('risk_tier')
+                        explanation = data.get('explanation', 'No explanation')
+                        self.log_test("Risk Analysis", True, f"Risk Tier: {risk_tier}, Explanation: {explanation[:100]}...")
+                        return data
+                    else:
+                        # Check if it's a "no risk" response with detail message
+                        if data.get('detail') and "No risk detected" in data.get('detail'):
+                            self.log_test("Risk Analysis", True, "No risk detected - member is healthy")
+                            return {"risk_tier": "green", "explanation": "No risk detected"}
+                        else:
+                            self.log_test("Risk Analysis", False, error="Missing risk data")
+                            return None
+                except:
+                    # Handle non-JSON response
                     if response.text and "No risk detected" in response.text:
                         self.log_test("Risk Analysis", True, "No risk detected - member is healthy")
                         return {"risk_tier": "green", "explanation": "No risk detected"}
                     else:
-                        self.log_test("Risk Analysis", False, error="Missing risk data")
+                        self.log_test("Risk Analysis", False, error="Invalid response format")
                         return None
             else:
                 self.log_test("Risk Analysis", False, error=f"HTTP {response.status_code if response else 'No response'}")
