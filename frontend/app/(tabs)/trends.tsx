@@ -166,18 +166,18 @@ export default function TrendsScreen() {
               dataPointsRadius={4}
               curved
               areaChart
-              startFillColor="rgba(16, 185, 129, 0.3)"
-              endFillColor="rgba(16, 185, 129, 0.05)"
-              startOpacity={0.9}
-              endOpacity={0.2}
-              spacing={chartWidth / (hrvData.length || 1)}
-              backgroundColor="#16213e"
+              startFillColor="#10b981"
+              endFillColor="#10b981"
+              startOpacity={0.3}
+              endOpacity={0.05}
+              spacing={Math.max(40, chartWidth / (hrvData.length || 1))}
               hideRules
               xAxisColor="#0f3460"
               yAxisColor="#0f3460"
               yAxisTextStyle={{ color: '#8892b0', fontSize: 10 }}
               xAxisLabelTextStyle={{ color: '#8892b0', fontSize: 10 }}
               noOfSections={4}
+              hideDataPoints={hrvData.length > 20}
             />
             <View style={styles.statsRow}>
               <View style={styles.statItem}>
