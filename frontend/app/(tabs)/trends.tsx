@@ -31,14 +31,20 @@ export default function TrendsScreen() {
   }, [timeRange]);
 
   const loadData = async () => {
-    if (!accessToken) return;
+    if (!accessToken) {
+      console.log('No access token available');
+      return;
+    }
 
     setIsLoading(true);
 
     // Get member profile
     const profileResponse = await api.getMemberProfile(accessToken);
+    console.log('Member profile response:', profileResponse);
+    
     if (profileResponse.data) {
       setMemberProfile(profileResponse.data);
+      console.log('Member ID:', profileResponse.data.id);
 
       // Get metrics
       const metricsResponse = await api.getMetrics(
@@ -46,9 +52,16 @@ export default function TrendsScreen() {
         profileResponse.data.id,
         timeRange
       );
+      console.log('Metrics response:', metricsResponse);
+      console.log('Metrics data length:', metricsResponse.data?.length || 0);
+      
       if (metricsResponse.data) {
         setMetrics(metricsResponse.data);
+      } else if (metricsResponse.error) {
+        console.error('Metrics error:', metricsResponse.error);
       }
+    } else if (profileResponse.error) {
+      console.error('Profile error:', profileResponse.error);
     }
 
     setIsLoading(false);
