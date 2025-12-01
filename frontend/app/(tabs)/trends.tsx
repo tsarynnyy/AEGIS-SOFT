@@ -33,35 +33,45 @@ export default function TrendsScreen() {
   const loadData = async () => {
     if (!accessToken) {
       console.log('No access token available');
+      Alert.alert('Authentication Error', 'Please log in again');
       return;
     }
 
     setIsLoading(true);
 
-    // Get member profile
-    const profileResponse = await api.getMemberProfile(accessToken);
-    console.log('Member profile response:', profileResponse);
-    
-    if (profileResponse.data) {
-      setMemberProfile(profileResponse.data);
-      console.log('Member ID:', profileResponse.data.id);
-
-      // Get metrics
-      const metricsResponse = await api.getMetrics(
-        accessToken,
-        profileResponse.data.id,
-        timeRange
-      );
-      console.log('Metrics response:', metricsResponse);
-      console.log('Metrics data length:', metricsResponse.data?.length || 0);
+    try {
+      // Get member profile
+      const profileResponse = await api.getMemberProfile(accessToken);
       
-      if (metricsResponse.data) {
-        setMetrics(metricsResponse.data);
-      } else if (metricsResponse.error) {
-        console.error('Metrics error:', metricsResponse.error);
+      if (profileResponse.error) {
+        console.error('Profile error:', profileResponse.error);
+        Alert.alert('Error', 'Failed to load profile. Please try logging in again.');
+        setIsLoading(false);
+        return;
       }
-    } else if (profileResponse.error) {
-      console.error('Profile error:', profileResponse.error);
+      
+      if (profileResponse.data) {
+        setMemberProfile(profileResponse.data);
+        console.log('Member ID:', profileResponse.data.id);
+
+        // Get metrics
+        const metricsResponse = await api.getMetrics(
+          accessToken,
+          profileResponse.data.id,
+          timeRange
+        );
+        
+        if (metricsResponse.error) {
+          console.error('Metrics error:', metricsResponse.error);
+          Alert.alert('Error', 'Failed to load health data');
+        } else if (metricsResponse.data) {
+          console.log('Loaded metrics:', metricsResponse.data.length);
+          setMetrics(metricsResponse.data);
+        }
+      }
+    } catch (error) {
+      console.error('Load data error:', error);
+      Alert.alert('Error', 'Failed to load data');
     }
 
     setIsLoading(false);
