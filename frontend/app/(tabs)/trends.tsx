@@ -105,6 +105,11 @@ export default function TrendsScreen() {
   const sleepStats = getMetricStats('sleep_efficiency');
   const stepsStats = getMetricStats('steps');
 
+  console.log('Trends Screen - Total metrics:', metrics.length);
+  console.log('HRV data points:', hrvData.length);
+  console.log('Sleep data points:', sleepData.length);
+  console.log('Steps data points:', stepsData.length);
+
   return (
     <SafeAreaView style={styles.safeArea} edges={['top']}>
       <ScrollView
