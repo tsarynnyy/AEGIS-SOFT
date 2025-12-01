@@ -4,237 +4,237 @@
     "success": true,
     "details": "Service: Aegis AI Wellness API",
     "error": "",
-    "timestamp": "2025-12-01T07:21:09.638013"
+    "timestamp": "2025-12-01T07:21:39.358394"
   },
   {
     "test": "User Login",
     "success": true,
     "details": "User: demo.member0@aegis-demo.com",
     "error": "",
-    "timestamp": "2025-12-01T07:21:09.875288"
+    "timestamp": "2025-12-01T07:21:39.593713"
   },
   {
     "test": "Get Current User",
     "success": true,
     "details": "Email: demo.member0@aegis-demo.com",
     "error": "",
-    "timestamp": "2025-12-01T07:21:09.892795"
+    "timestamp": "2025-12-01T07:21:39.604403"
   },
   {
     "test": "Token Refresh",
     "success": true,
     "details": "New access token received",
     "error": "",
-    "timestamp": "2025-12-01T07:21:09.907464"
+    "timestamp": "2025-12-01T07:21:39.616007"
   },
   {
     "test": "Get Member Profile",
     "success": true,
     "details": "Member: John Smith (ID: member-000)",
     "error": "",
-    "timestamp": "2025-12-01T07:21:09.962743"
+    "timestamp": "2025-12-01T07:21:39.625807"
   },
   {
     "test": "Get Member by ID",
     "success": true,
     "details": "Member: John Smith",
     "error": "",
-    "timestamp": "2025-12-01T07:21:09.976765"
+    "timestamp": "2025-12-01T07:21:39.645004"
   },
   {
     "test": "Get Member Metrics (7 days)",
     "success": true,
     "details": "Retrieved 25 metrics",
     "error": "",
-    "timestamp": "2025-12-01T07:21:09.993651"
+    "timestamp": "2025-12-01T07:21:39.655109"
   },
   {
     "test": "Get Member Metrics (7 days) (filtered by hrv)",
     "success": true,
     "details": "Retrieved 6 metrics",
     "error": "",
-    "timestamp": "2025-12-01T07:21:10.007146"
+    "timestamp": "2025-12-01T07:21:39.666196"
   },
   {
     "test": "Get Member Metrics (30 days)",
     "success": true,
     "details": "Retrieved 120 metrics",
     "error": "",
-    "timestamp": "2025-12-01T07:21:10.022014"
+    "timestamp": "2025-12-01T07:21:39.679006"
   },
   {
     "test": "Risk Analysis",
     "success": true,
     "details": "No risk detected - member is healthy",
     "error": "",
-    "timestamp": "2025-12-01T07:21:10.036016"
+    "timestamp": "2025-12-01T07:21:39.731754"
   },
   {
     "test": "Get Current Risk",
     "success": true,
     "details": "No current risk events",
     "error": "",
-    "timestamp": "2025-12-01T07:21:10.047442"
+    "timestamp": "2025-12-01T07:21:39.741918"
   },
   {
     "test": "Get Member Alerts",
     "success": true,
     "details": "Retrieved 0 alerts",
     "error": "",
-    "timestamp": "2025-12-01T07:21:10.061894"
+    "timestamp": "2025-12-01T07:21:39.754070"
   },
   {
     "test": "Get Member Devices",
     "success": true,
     "details": "Retrieved 1 devices",
     "error": "",
-    "timestamp": "2025-12-01T07:21:10.073612"
+    "timestamp": "2025-12-01T07:21:39.765112"
   },
   {
     "test": "Get Member Consents",
     "success": true,
     "details": "Retrieved 3 consents",
     "error": "",
-    "timestamp": "2025-12-01T07:21:10.086168"
+    "timestamp": "2025-12-01T07:21:39.776057"
   },
   {
     "test": "User Login",
     "success": true,
     "details": "User: demo.member0@aegis-demo.com",
     "error": "",
-    "timestamp": "2025-12-01T07:21:10.324848"
+    "timestamp": "2025-12-01T07:21:40.051029"
   },
   {
     "test": "Get Member Profile",
     "success": true,
     "details": "Member: John Smith (ID: member-000)",
     "error": "",
-    "timestamp": "2025-12-01T07:21:10.335750"
+    "timestamp": "2025-12-01T07:21:40.061490"
   },
   {
     "test": "Get Member Metrics (30 days)",
     "success": true,
     "details": "Retrieved 120 metrics",
     "error": "",
-    "timestamp": "2025-12-01T07:21:10.348646"
+    "timestamp": "2025-12-01T07:21:40.073187"
   },
   {
     "test": "Risk Analysis",
     "success": true,
     "details": "No risk detected - member is healthy",
     "error": "",
-    "timestamp": "2025-12-01T07:21:10.361420"
+    "timestamp": "2025-12-01T07:21:40.084205"
   },
   {
     "test": "User Login",
     "success": true,
     "details": "User: demo.member3@aegis-demo.com",
     "error": "",
-    "timestamp": "2025-12-01T07:21:10.594829"
+    "timestamp": "2025-12-01T07:21:40.317379"
   },
   {
     "test": "Get Member Profile",
     "success": true,
     "details": "Member: Patricia Brown (ID: member-003)",
     "error": "",
-    "timestamp": "2025-12-01T07:21:10.605178"
+    "timestamp": "2025-12-01T07:21:40.327866"
   },
   {
     "test": "Get Member Metrics (30 days)",
     "success": true,
     "details": "Retrieved 120 metrics",
     "error": "",
-    "timestamp": "2025-12-01T07:21:10.618224"
+    "timestamp": "2025-12-01T07:21:40.340904"
   },
   {
     "test": "Risk Analysis",
     "success": false,
     "details": "",
     "error": "Missing risk data",
-    "timestamp": "2025-12-01T07:21:10.632608"
+    "timestamp": "2025-12-01T07:21:40.397894"
   },
   {
     "test": "User Login",
     "success": true,
     "details": "User: demo.member5@aegis-demo.com",
     "error": "",
-    "timestamp": "2025-12-01T07:21:10.866509"
+    "timestamp": "2025-12-01T07:21:40.631517"
   },
   {
     "test": "Get Member Profile",
     "success": true,
     "details": "Member: Jennifer Garcia (ID: member-005)",
     "error": "",
-    "timestamp": "2025-12-01T07:21:10.878077"
+    "timestamp": "2025-12-01T07:21:40.682136"
   },
   {
     "test": "Get Member Metrics (30 days)",
     "success": true,
     "details": "Retrieved 120 metrics",
     "error": "",
-    "timestamp": "2025-12-01T07:21:10.890870"
+    "timestamp": "2025-12-01T07:21:40.695673"
   },
   {
     "test": "Risk Analysis",
     "success": true,
     "details": "No risk detected - member is healthy",
     "error": "",
-    "timestamp": "2025-12-01T07:21:10.943291"
+    "timestamp": "2025-12-01T07:21:40.707177"
   },
   {
     "test": "User Login",
     "success": true,
     "details": "User: demo.member7@aegis-demo.com",
     "error": "",
-    "timestamp": "2025-12-01T07:21:11.176969"
+    "timestamp": "2025-12-01T07:21:40.978906"
   },
   {
     "test": "Get Member Profile",
     "success": true,
     "details": "Member: Linda Davis (ID: member-007)",
     "error": "",
-    "timestamp": "2025-12-01T07:21:11.229098"
+    "timestamp": "2025-12-01T07:21:41.031308"
   },
   {
     "test": "Get Member Metrics (30 days)",
     "success": true,
     "details": "Retrieved 120 metrics",
     "error": "",
-    "timestamp": "2025-12-01T07:21:11.242608"
+    "timestamp": "2025-12-01T07:21:41.043158"
   },
   {
     "test": "Risk Analysis",
     "success": true,
     "details": "No risk detected - member is healthy",
     "error": "",
-    "timestamp": "2025-12-01T07:21:11.255085"
+    "timestamp": "2025-12-01T07:21:41.054569"
   },
   {
     "test": "User Login",
     "success": true,
     "details": "User: demo.member8@aegis-demo.com",
     "error": "",
-    "timestamp": "2025-12-01T07:21:11.530686"
+    "timestamp": "2025-12-01T07:21:41.286459"
   },
   {
     "test": "Get Member Profile",
     "success": true,
     "details": "Member: David Rodriguez (ID: member-008)",
     "error": "",
-    "timestamp": "2025-12-01T07:21:11.542731"
+    "timestamp": "2025-12-01T07:21:41.295147"
   },
   {
     "test": "Get Member Metrics (30 days)",
     "success": true,
     "details": "Retrieved 120 metrics",
     "error": "",
-    "timestamp": "2025-12-01T07:21:11.554845"
+    "timestamp": "2025-12-01T07:21:41.306425"
   },
   {
     "test": "Risk Analysis",
     "success": false,
     "details": "",
     "error": "Missing risk data",
-    "timestamp": "2025-12-01T07:21:11.567518"
+    "timestamp": "2025-12-01T07:21:41.360095"
   }
 ]
