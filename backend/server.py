@@ -49,6 +49,11 @@ risk_repo = RiskRepository(db)
 consent_repo = ConsentRepository(db)
 device_repo = DeviceRepository(db)
 
+# Import caregiver repository
+from repositories.caregiver_repository import CaregiverRepository, CaregiverMemberRepository
+caregiver_repo = CaregiverRepository(db)
+caregiver_member_repo = CaregiverMemberRepository(db)
+
 # Initialize services
 auth_service = AuthService(user_repo)
 member_service = MemberService(member_repo, consent_repo)
