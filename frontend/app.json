@@ -17,7 +17,13 @@
       "bundleIdentifier": "com.aegis.wellness",
       "infoPlist": {
         "NSCameraUsageDescription": "This app uses the camera for health monitoring features.",
-        "NSLocationWhenInUseUsageDescription": "This app uses location for wellness tracking."
+        "NSLocationWhenInUseUsageDescription": "This app uses location for wellness tracking.",
+        "NSHealthShareUsageDescription": "Aegis AI needs access to your health data to monitor your wellness and detect potential health concerns.",
+        "NSHealthUpdateUsageDescription": "Aegis AI can write wellness data to Apple Health."
+      },
+      "entitlements": {
+        "com.apple.developer.healthkit": true,
+        "com.apple.developer.healthkit.access": []
       }
     },
     "android": {
