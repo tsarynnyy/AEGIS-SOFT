@@ -394,9 +394,11 @@ class AegisAPITester:
         print("RISK PATTERN SUMMARY")
         print("=" * 60)
         for pattern, result in risk_results.items():
-            print(f"{pattern.upper()}: {result['member']} - {result['risk_tier'].upper()}")
-            print(f"  Explanation: {result['explanation'][:100]}...")
-            print()
+            risk_tier = result.get('risk_tier', 'unknown')
+            if risk_tier:
+                print(f"{pattern.upper()}: {result['member']} - {risk_tier.upper()}")
+                print(f"  Explanation: {result['explanation'][:100]}...")
+                print()
         
         return risk_results
     
