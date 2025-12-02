@@ -40,6 +40,14 @@
     },
     "plugins": [
       "expo-router",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/icon.png",
+          "color": "#64ffda",
+          "sounds": []
+        }
+      ],
       "expo-font",
       "expo-web-browser"
     ],
