@@ -202,6 +202,123 @@ async def get_member(
     return MemberResponse(**member.dict())
 
 
+@api_router.patch("/members/{member_id}")
+async def update_member(
+    member_id: str,
+    updates: dict,
+    current_user: User = Depends(get_current_user)
+):
+    """Update member profile"""
+    # Validate member exists
+    member = await member_service.get_member(member_id)
+    if not member:
+        raise HTTPException(status_code=404, detail="Member not found")
+    
+    # Update member
+    updated_member = await member_repo.update(member_id, updates)
+    if not updated_member:
+        raise HTTPException(status_code=400, detail="Update failed")
+    
+    return {"message": "Profile updated successfully", "member": updated_member}
+
+
+@api_router.post("/members/{member_id}/pause-sharing")
+async def pause_data_sharing(
+    member_id: str,
+    duration_hours: int = 24,
+    current_user: User = Depends(get_current_user)
+):
+    """Pause data sharing temporarily"""
+    from datetime import timedelta
+    paused_until = datetime.utcnow() + timedelta(hours=duration_hours)
+    
+    await member_repo.update(member_id, {
+        'data_sharing_paused_until': paused_until
+    })
+    
+    return {
+        "message": f"Data sharing paused for {duration_hours} hours",
+        "paused_until": paused_until
+    }
+
+
+@api_router.post("/members/{member_id}/resume-sharing")
+async def resume_data_sharing(
+    member_id: str,
+    current_user: User = Depends(get_current_user)
+):
+    """Resume data sharing"""
+    await member_repo.update(member_id, {
+        'data_sharing_paused_until': None
+    })
+    
+    return {"message": "Data sharing resumed"}
+
+
+@api_router.get("/members/{member_id}/export-data")
+async def export_member_data(
+    member_id: str,
+    format: str = "json",
+    current_user: User = Depends(get_current_user)
+):
+    """Export all member data (GDPR compliance)"""
+    # Get member profile
+    member = await member_service.get_member(member_id)
+    if not member:
+        raise HTTPException(status_code=404, detail="Member not found")
+    
+    # Get all related data
+    from datetime import timedelta
+    end_date = datetime.utcnow()
+    start_date = end_date - timedelta(days=365)  # Last year
+    
+    metrics = await metric_repo.find_by_member(member_id, start_date, end_date, limit=10000)
+    alerts = await risk_repo.find_by_member(member_id, limit=1000)
+    consents = await consent_repo.find_by_member(member_id)
+    devices = await device_repo.find_by_member(member_id)
+    
+    export_data = {
+        "member_profile": member.dict(),
+        "metrics": metrics,
+        "alerts": alerts,
+        "consents": consents,
+        "devices": devices,
+        "export_date": datetime.utcnow().isoformat(),
+        "data_period": {
+            "start": start_date.isoformat(),
+            "end": end_date.isoformat()
+        }
+    }
+    
+    return export_data
+
+
+@api_router.delete("/members/{member_id}/delete-account")
+async def delete_member_account(
+    member_id: str,
+    confirmation: str,
+    current_user: User = Depends(get_current_user)
+):
+    """Delete member account and all data"""
+    if confirmation != "DELETE":
+        raise HTTPException(status_code=400, detail="Confirmation required")
+    
+    # Delete member data
+    await metric_repo.collection.delete_many({'member_id': member_id})
+    await risk_repo.collection.delete_many({'member_id': member_id})
+    await consent_repo.collection.delete_many({'member_id': member_id})
+    await device_repo.collection.delete_many({'member_id': member_id})
+    await caregiver_member_repo.collection.delete_many({'member_id': member_id})
+    
+    # Delete member profile
+    await member_repo.delete(member_id)
+    
+    # Deactivate user
+    await user_repo.update(current_user.id, {'is_active': False})
+    
+    return {"message": "Account deleted successfully"}
+
+
 # ==================== CONSENT ROUTES ====================
 
 @api_router.post("/members/{member_id}/consents", response_model=Consent)
