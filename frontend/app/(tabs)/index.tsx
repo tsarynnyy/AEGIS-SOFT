@@ -24,20 +24,39 @@ export default function DashboardScreen() {
   }, []);
 
   const loadDashboardData = async () => {
-    if (!accessToken) return;
+    if (!accessToken) {
+      console.log('[Dashboard] No access token available');
+      return;
+    }
 
     setIsLoading(true);
 
-    // Get member profile
-    const profileResponse = await api.getMemberProfile(accessToken);
-    if (profileResponse.data) {
-      setMemberProfile(profileResponse.data);
-
-      // Get risk status
-      const riskResponse = await api.getCurrentRisk(accessToken, profileResponse.data.id);
-      if (riskResponse.data) {
-        setRiskStatus(riskResponse.data);
+    try {
+      // Get member profile
+      const profileResponse = await api.getMemberProfile(accessToken);
+      
+      if (profileResponse.error) {
+        console.error('[Dashboard] Profile error:', profileResponse.error);
+        Alert.alert('Error', 'Failed to load your profile. Please try logging in again.');
+        setIsLoading(false);
+        return;
       }
+      
+      if (profileResponse.data) {
+        setMemberProfile(profileResponse.data);
+
+        // Get risk status
+        const riskResponse = await api.getCurrentRisk(accessToken, profileResponse.data.id);
+        if (riskResponse.error) {
+          console.error('[Dashboard] Risk error:', riskResponse.error);
+          // Don't show error for risk - it's optional
+        } else if (riskResponse.data) {
+          setRiskStatus(riskResponse.data);
+        }
+      }
+    } catch (error) {
+      console.error('[Dashboard] Unexpected error:', error);
+      Alert.alert('Error', 'Something went wrong. Please try again.');
     }
 
     setIsLoading(false);
