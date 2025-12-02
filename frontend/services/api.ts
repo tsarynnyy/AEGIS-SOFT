@@ -228,4 +228,125 @@ export const api = {
       return { error: 'Network error. Please check your connection.' };
     }
   },
+
+  // Profile & Privacy endpoints
+  updateMemberProfile: async (
+    token: string,
+    memberId: string,
+    updates: any
+  ): Promise<ApiResponse<any>> => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/members/${memberId}`, {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updates),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return { error: data.detail || 'Failed to update profile' };
+      }
+
+      return { data };
+    } catch (error) {
+      return { error: 'Network error. Please check your connection.' };
+    }
+  },
+
+  pauseDataSharing: async (
+    token: string,
+    memberId: string,
+    hours: number = 24
+  ): Promise<ApiResponse<any>> => {
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/api/members/${memberId}/pause-sharing?duration_hours=${hours}`,
+        {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return { error: data.detail || 'Failed to pause data sharing' };
+      }
+
+      return { data };
+    } catch (error) {
+      return { error: 'Network error. Please check your connection.' };
+    }
+  },
+
+  resumeDataSharing: async (token: string, memberId: string): Promise<ApiResponse<any>> => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/members/${memberId}/resume-sharing`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return { error: data.detail || 'Failed to resume data sharing' };
+      }
+
+      return { data };
+    } catch (error) {
+      return { error: 'Network error. Please check your connection.' };
+    }
+  },
+
+  exportData: async (token: string, memberId: string): Promise<ApiResponse<any>> => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/members/${memberId}/export-data`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return { error: data.detail || 'Failed to export data' };
+      }
+
+      return { data };
+    } catch (error) {
+      return { error: 'Network error. Please check your connection.' };
+    }
+  },
+
+  deleteAccount: async (token: string, memberId: string): Promise<ApiResponse<any>> => {
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/api/members/${memberId}/delete-account?confirmation=DELETE`,
+        {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return { error: data.detail || 'Failed to delete account' };
+      }
+
+      return { data };
+    } catch (error) {
+      return { error: 'Network error. Please check your connection.' };
+    }
+  },
 };
