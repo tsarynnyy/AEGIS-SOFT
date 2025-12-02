@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test the Aegis AI Wellness Platform Backend APIs - comprehensive testing of authentication, member management, health metrics, risk detection, device connections, and consent management"
+user_problem_statement: "Test Aegis AI Wellness Platform iOS App - Comprehensive End-to-End Testing of authentication, dashboard, health trends, care circle, devices, and settings screens"
 
 backend:
   - task: "Authentication System"
